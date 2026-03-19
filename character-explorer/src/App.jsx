@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import CharactersPage from "./pages/CharactersPage";
 import DetailPage from "./pages/DetailPage";
+import EditCharacterPage from "./pages/EditCharacterPage";
 import { InfoTab, EpisodesTab } from "./components/Tabs";
 
 // root route tree — all routes live under /dashboard
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="info" element={<InfoTab />} />
           <Route path="episodes" element={<EpisodesTab />} />
         </Route>
+        <Route path="characters/:id/edit" element={<EditCharacterPage />} />
         <Route path="about" element={<AboutPage />} />
       </Route>
     </Routes>

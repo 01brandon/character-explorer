@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetch, { API } from "../hooks/useFetch";
+import { filterDeletedCharacters, mergedCharacter } from "../utils/characterStorage";
 
 // shows character grid with search and pagination at /dashboard/characters
 export default function CharactersPage() {
@@ -8,6 +9,11 @@ export default function CharactersPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const { data, loading, error } = useFetch(`${API}?page=${page}&name=${search}`);
+
+  const characters = useMemo(() => {
+    if (!data?.results) return [];
+    return filterDeletedCharacters(data.results).map(mergedCharacter);
+  }, [data]);
 
   return (
     <div>
@@ -26,7 +32,7 @@ export default function CharactersPage() {
 
       {/* character grid */}
       <div className="grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-3">
-        {data?.results?.map((c) => (
+        {characters.map((c) => (
           <button
             key={c.id}
             onClick={() => navigate(`/dashboard/characters/${c.id}`)}

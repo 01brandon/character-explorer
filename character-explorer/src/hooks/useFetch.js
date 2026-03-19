@@ -11,6 +11,7 @@ export default function useFetch(url) {
 
   useEffect(() => {
     if (!url) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
     fetch(url)
       .then((r) => r.json())

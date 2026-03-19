@@ -1,14 +1,35 @@
+import { useMemo } from "react";
 import { useParams, useNavigate, NavLink, Outlet } from "react-router-dom";
 import useFetch, { API } from "../hooks/useFetch";
+import { mergedCharacter } from "../utils/characterStorage";
 
 // shows single character details at /dashboard/characters/:id
 export default function DetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: c, loading, error } = useFetch(`${API}/${id}`);
+  const { data, loading, error } = useFetch(`${API}/${id}`);
+
+  const c = useMemo(() => {
+    if (!data) return null;
+    return mergedCharacter(data);
+  }, [data]);
 
   if (loading) return <p className="text-zinc-400 text-sm">Loading...</p>;
   if (error || !c) return <p className="text-red-500 text-sm">Character not found.</p>;
+
+  if (c.deleted) {
+    return (
+      <div>
+        <button
+          onClick={() => navigate("/dashboard/characters")}
+          className="mb-4 px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:bg-gray-50"
+        >
+          &larr; Back
+        </button>
+        <p className="text-zinc-600">This character has been deleted.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -18,6 +39,13 @@ export default function DetailPage() {
         className="mb-4 px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:bg-gray-50"
       >
         &larr; Back
+      </button>
+
+      <button
+        onClick={() => navigate(`/dashboard/characters/${id}/edit`)}
+        className="mb-4 ml-3 px-3 py-1.5 text-sm border border-blue-600 rounded-lg bg-white text-blue-600 hover:bg-blue-50"
+      >
+        Edit
       </button>
 
       {/* character header */}
