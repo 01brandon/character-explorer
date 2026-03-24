@@ -17,51 +17,53 @@ export default function CharactersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-medium text-zinc-800 mb-4">Characters</h1>
+      <h1 className="text-3xl font-bold text-zinc-800 mb-6">Characters</h1>
 
       {/* search input */}
-      <input
-        placeholder="Search..."
-        value={search}
-        onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-        className="mb-5 w-60 px-3 py-2 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-500 bg-white"
-      />
+      <div className="mb-8">
+        <input
+          placeholder="Search characters..."
+          value={search}
+          onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+          className="w-full max-w-md px-4 py-3 text-sm border border-zinc-300 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white shadow-sm"
+        />
+      </div>
 
-      {loading && <p className="text-zinc-400 text-sm">Loading...</p>}
-      {error && <p className="text-red-500 text-sm">Failed to load.</p>}
+      {loading && <p className="text-zinc-500 text-sm">Loading characters...</p>}
+      {error && <p className="text-red-600 text-sm bg-red-50 p-3 rounded-lg">Failed to load characters. Please try again.</p>}
 
       {/* character grid */}
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {characters.map((c) => (
           <button
             key={c.id}
             onClick={() => navigate(`/dashboard/characters/${c.id}`)}
-            className="bg-white border border-gray-100 rounded-xl p-3 text-center cursor-pointer hover:border-blue-200 hover:shadow-sm transition-all"
+            className="bg-white border border-zinc-200 rounded-xl p-4 text-center cursor-pointer hover:border-blue-300 hover:shadow-lg transition-all duration-200 group"
           >
-            <img src={c.image} alt={c.name} className="w-full rounded-lg mb-2" />
-            <p className="text-xs font-medium text-zinc-800 m-0">{c.name}</p>
-            <p className="text-xs text-zinc-400 mt-0.5">{c.species}</p>
+            <img src={c.image} alt={c.name} className="w-full rounded-lg mb-3 shadow-sm group-hover:shadow-md transition-shadow" />
+            <p className="text-sm font-semibold text-zinc-800 mb-1 truncate">{c.name}</p>
+            <p className="text-xs text-zinc-500">{c.species}</p>
           </button>
         ))}
       </div>
 
       {/* pagination controls */}
       {data?.info && (
-        <div className="flex items-center gap-4 mt-6">
+        <div className="flex items-center justify-center gap-4 mt-10">
           <button
             onClick={() => setPage((p) => p - 1)}
             disabled={!data.info.prev}
-            className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2 text-sm border border-zinc-300 rounded-lg bg-white hover:bg-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            &larr; Prev
+            ← Previous
           </button>
-          <span className="text-zinc-400 text-sm">Page {page} / {data.info.pages}</span>
+          <span className="text-zinc-600 text-sm font-medium">Page {page} of {data.info.pages}</span>
           <button
             onClick={() => setPage((p) => p + 1)}
             disabled={!data.info.next}
-            className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-4 py-2 text-sm border border-zinc-300 rounded-lg bg-white hover:bg-zinc-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            Next &rarr;
+            Next →
           </button>
         </div>
       )}

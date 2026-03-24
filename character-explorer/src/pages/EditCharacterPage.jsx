@@ -68,29 +68,29 @@ export default function EditCharacterPage() {
     <div>
       <button
         onClick={() => navigate(`/dashboard/characters/${id}`)}
-        className="mb-4 px-3 py-1.5 text-sm border border-gray-200 rounded-lg bg-white hover:bg-gray-50"
+        className="mb-6 px-4 py-2 text-sm border border-zinc-300 rounded-lg bg-white hover:bg-zinc-50 transition-colors"
       >
-        &larr; Back
+        ← Back
       </button>
 
-      <h1 className="text-2xl font-medium text-zinc-800 mb-4">Edit {character.name}</h1>
+      <h1 className="text-3xl font-bold text-zinc-800 mb-6">Edit {character.name}</h1>
 
-      <form onSubmit={onSave} className="space-y-4 max-w-md">
+      <form onSubmit={onSave} className="space-y-6 max-w-lg bg-white p-6 rounded-lg shadow-sm border border-zinc-200">
         <label className="block">
-          <span className="text-sm text-zinc-500">Name</span>
+          <span className="text-sm font-medium text-zinc-700">Name</span>
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-blue-500 bg-white"
+            className="mt-2 w-full px-4 py-3 border border-zinc-300 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white transition-colors"
           />
         </label>
 
         <label className="block">
-          <span className="text-sm text-zinc-500">Status</span>
+          <span className="text-sm font-medium text-zinc-700">Status</span>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-blue-500 bg-white"
+            className="mt-2 w-full px-4 py-3 border border-zinc-300 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white transition-colors"
           >
             <option value="Alive">Alive</option>
             <option value="Dead">Dead</option>
@@ -99,37 +99,37 @@ export default function EditCharacterPage() {
         </label>
 
         <label className="block">
-          <span className="text-sm text-zinc-500">Species</span>
+          <span className="text-sm font-medium text-zinc-700">Species</span>
           <input
             value={species}
             onChange={(e) => setSpecies(e.target.value)}
-            className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-blue-500 bg-white"
+            className="mt-2 w-full px-4 py-3 border border-zinc-300 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white transition-colors"
           />
         </label>
 
         <label className="block">
-          <span className="text-sm text-zinc-500">Image URL</span>
+          <span className="text-sm font-medium text-zinc-700">Image URL</span>
           <input
             value={image}
             onChange={(e) => setImage(e.target.value)}
-            className="mt-1 w-full px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-blue-500 bg-white"
+            className="mt-2 w-full px-4 py-3 border border-zinc-300 rounded-lg outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 bg-white transition-colors"
           />
         </label>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4 pt-4">
           <button
             type="submit"
             disabled={saving}
-            className="px-4 py-2 text-sm font-medium border border-blue-600 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50"
+            className="px-6 py-3 text-sm font-medium border border-blue-600 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
           >
-            Save
+            {saving ? "Saving..." : "Save Changes"}
           </button>
           <button
             type="button"
             onClick={onDelete}
-            className="px-4 py-2 text-sm font-medium border border-red-500 rounded-lg bg-white text-red-600 hover:bg-red-50"
+            className="px-6 py-3 text-sm font-medium border border-red-500 rounded-lg bg-white text-red-600 hover:bg-red-50 transition-colors"
           >
-            Delete
+            Delete Character
           </button>
         </div>
       </form>
